@@ -1,9 +1,10 @@
 
 exports.up = function(knex) {
    return knex.schema.createTable("users", table => {
-        table.increments();
-        table.string("nick");
-        table.string("salt");
+        table.increments('id').unsigned().primary();
+        table.string("name");
+        table.string("surname");
+        table.integer("age");
         table.string("password");
     });
 };

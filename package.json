@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev" : "nodemon app.js"
+    "dev": "nodemon app.js"
   },
-  "author": " <pugach panchuk>",
+  "author": " <panchuk>",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
