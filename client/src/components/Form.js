@@ -1,58 +1,83 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Form, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import './Form.css';  
 
 function Login() {
 
 const [form,setForm] = useState({
     name : '',
     surname : '',
-    age : null,
-    password : null
+    email : '',
+    password : null,
+    hobbie : ''
 });
+const [redirect,setRedirect] = useState(false);
+
+useEffect(() =>{
+      setRedirect(false);
+},[])
+
 
 const formHandle = (event) =>{
     setForm({...form,[event.target.name] : event.target.value});
 }
-const onSubmit = async () =>{
-    fetch('http://localhost:3002/api/login',{
-        method: 'POST',
-        body : {
-            name : form.name,
-            surname : form.surname,
-            age : form.age,
-            password : form.password
-        },
-        mode: 'no-cors', 
-        headers: {
-        'Content-Type': 'application/json'
-        }
-    })
+const redirectHandler = () =>{
+  if(redirect){
+    return <Redirect to = '/' />
+  }
+}
+
+const onSubmit = async (e) =>{
+  e.preventDefault();
+  try {
+   let response = await fetch('http://localhost:3002/api/register',{
+      method: 'POST',
+      body : JSON.stringify(form),
+      headers: {
+       'Content-Type':'application/json'
+      }
+  });
+  if(response.ok){
+      setRedirect(true);
+  }
+  
+  } catch (error) {
+    console.log('fetch error:',error);
+  }
+    
 }
   return (
     <>
-      <Form >
+      <Form className = "form">
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Name: </Form.Label>
+          <Form.Label className = "m-label">Name: </Form.Label>
           <br />
-          <Form.Control type="text" placeholder="name" onChange = {formHandle}/>
+          <Form.Control type="text" placeholder="name" name = "name" onChange = {formHandle}/>
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Surname: </Form.Label>
+          <Form.Label className = "m-label">Surname: </Form.Label>
           <br />
-          <Form.Control type="text" placeholder="surname" onChange = {formHandle}/>
+          <Form.Control type="text" placeholder="surname" name = "surname" onChange = {formHandle}/>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Age:</Form.Label>
+          <Form.Label className = "m-label">Email:</Form.Label>
           <br />
-          <Form.Control type="number" min = "10" max = "100" placeholder="age" onChange = {formHandle}/>
+          <Form.Control type="text" placeholder="email" name = "email" onChange = {formHandle}/>
+        </Form.Group>
+         <Form.Group controlId="formBasicEmail">
+          <Form.Label className = "m-label">Hobbie: </Form.Label>
+          <br />
+          <Form.Control type="text" placeholder="hobbie" name = "hobbie" onChange = {formHandle}/>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password:</Form.Label>
+          <Form.Label className = "m-label">Password:</Form.Label>
           <br />
-          <Form.Control type="password" placeholder="Password" onChange = {formHandle}/>
+          <Form.Control type="password" placeholder="Password" name = "password" onChange = {formHandle}/>
         </Form.Group>
-        <Button variant="primary" type="submit" onClick = {onSubmit}>
-          Submit
+        {redirectHandler()}
+        <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
+          Log in
         </Button>
       </Form>
     </>

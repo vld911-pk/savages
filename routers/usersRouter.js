@@ -1,9 +1,16 @@
 const {Router} = require('express');
 const userController = require('../controllers/userController'); 
+const {check} = require('express-validator');
 const userRouter = Router();
 
+//GET
 userRouter.get('/users',userController.getAllUsers);
 userRouter.get('/users/:id',userController.getUserById);
-userRouter.get('/hobbies',userController.getAllHobbies)
+userRouter.get('/hobbies',userController.getAllHobbies);
+//POST
+userRouter.post('/register',[
+    check('email','invalid email').isEmail(),
+    check('password','invalid password').isLength({min : 5})
+],userController.registerHandler);
 
  module.exports = userRouter;

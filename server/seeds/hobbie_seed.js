@@ -5,9 +5,9 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('hobbies').insert([
-        {id : 1, hobbie : "swimming"},
-        {id : 2,hobbie : "reading"},
-        {id : 3,hobbie : "fucking"}
+        {hobbie : "swimming"},
+        {hobbie : "reading"},
+        {hobbie : "fucking"}
       ]);
     });
 };

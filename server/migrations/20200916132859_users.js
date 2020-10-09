@@ -4,8 +4,10 @@ exports.up = function(knex) {
         table.increments('id').unsigned().primary();
         table.string("name");
         table.string("surname");
-        table.integer("age");
+        table.string("email");
         table.string("password");
+        table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
+        table.timestamp("updated_at").notNullable().defaultTo(knex.fn.now());
     });
 };
 
