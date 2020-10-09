@@ -1,8 +1,19 @@
-.navbar1{
+.navbar{
     display: flex;
-    justify-content:flex-end;
+    position: relative;
     padding:12px;
     width: 100%;
     height: 70px;
     background-color: rgb(12, 12, 71);
+}
+.logo-wrapper{
+    width: 450px;
+}
+.logo-wrapper .logo{
+    flex:1;
+    -webkit-user-select: none;
+    position: relative;
+    color : rgb(255, 255, 255);
+    font-size: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

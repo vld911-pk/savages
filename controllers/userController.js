@@ -6,7 +6,6 @@ module.exports = {
     
     getAllUsers : async (req,res) => {
         let users = await user_model.getUsers();
-        console.log(users);
         res.send(users);
     },
     getUserById : async (req,res) => {
@@ -39,8 +38,16 @@ module.exports = {
                 email : data.email,
                 password : data.password
             }
-          
-            await user_model.setLoginData(user);
+            let hobbie ={
+                hobbie : data.hobbie
+            }
+           let [user_id] = await user_model.setLoginData(user);
+           let [hobbie_id] = await user_model.setHobbieData(hobbie);
+           await user_model.setIds({
+               user_id : user_id,
+               hobbie_id : hobbie_id
+           });
+
 
             res.status(200).json({message : "data has been received"});    
             console.log(data);

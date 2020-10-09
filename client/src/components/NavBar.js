@@ -1,11 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './NavBar.css';
-import Sign_Btn from './Nav_components/Sign_Button';
+import SignBtn from './Nav_components/Sign_Button';
 
 function NavBar(){
     return (
        <>
-            <Sign_Btn />
+        <div className = "navbar">
+           <div className = "logo-wrapper">
+               <h1 className = "logo" >FS</h1>
+           </div>
+           <NavLink to = "/login"><SignBtn /></NavLink>
+        </div>
        </>
     );
 }

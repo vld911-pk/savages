@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 
-function Sign_Button(){
+
+function SignButton(){
 
 const [redirect,setRedirect] = useState(false);
 useEffect(() =>{
-        setRedirect(false);
+        //setRedirect(false);
 },[])
-
 
 const clickHandler = () =>{
     if(redirect){
@@ -16,11 +16,11 @@ const clickHandler = () =>{
 }
     return (
        <>
-                <div className = "navbar1">
+                <div >
                     {clickHandler()}
-                    <button onClick = {() => {setRedirect(true)}} className = "btn btn-outline-primary custom">Sign in</button>
+                    <button onClick = {() => {setRedirect(true)}} style = {{flex : "2"}} className = "btn btn-outline-primary">Sign in</button>
                 </div>
        </>
     );
 }
-export default Sign_Button;
+export default SignButton;

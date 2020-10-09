@@ -15,7 +15,7 @@ const [form,setForm] = useState({
 const [redirect,setRedirect] = useState(false);
 
 useEffect(() =>{
-      setRedirect(false);
+      //setRedirect(false);
 },[])
 
 
