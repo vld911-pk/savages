@@ -2,7 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable("ids", table => {
         table.integer('user_id').unsigned();
-        table.integer('hobbie_id').unsigned();
+        table.integer('continent_id').unsigned();
     });
 };
 

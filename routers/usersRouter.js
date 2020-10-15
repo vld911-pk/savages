@@ -6,7 +6,7 @@ const userRouter = Router();
 //GET
 userRouter.get('/users',userController.getAllUsers);
 userRouter.get('/users/:id',userController.getUserById);
-userRouter.get('/hobbies',userController.getAllHobbies);
+userRouter.get('/continents',userController.getAllContinents);
 //POST
 userRouter.post('/register',[
     check('email','invalid email').isEmail(),

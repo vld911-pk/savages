@@ -10,7 +10,7 @@ function NavBar(){
            <div className = "logo-wrapper">
                <h1 className = "logo" >FS</h1>
            </div>
-           <NavLink to = "/login"><SignBtn /></NavLink>
+           <NavLink to = "/register"><SignBtn /></NavLink>
         </div>
        </>
     );

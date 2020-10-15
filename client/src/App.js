@@ -9,7 +9,7 @@ function App() {
    <Router >
      <NavBar />
         <Switch>
-            <Route path="/login" exact>
+            <Route path="/register" exact>
                   <Form />
             </Route>
         </Switch>

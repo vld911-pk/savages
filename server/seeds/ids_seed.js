@@ -5,9 +5,9 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('ids').insert([
-        {user_id: 1, hobbie_id : 2},
-        {user_id: 1, hobbie_id : 2},
-        {user_id: 1, hobbie_id : 2}
+        {user_id: 1, continent_id : 2},
+        {user_id: 1, continent_id : 2},
+        {user_id: 1, continent_id : 2}
       ]);
     });
 };
