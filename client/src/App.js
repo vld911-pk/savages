@@ -4,7 +4,7 @@ import './App.css';
 import NavBar from './components/NavBar';
 import Login from './components/Login_form';
 import Register from './components/Register_form';
-import Front_page from './components/Front_page';
+import FrontPage from './components/Front_page';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
      <NavBar />
         <Switch>
             <Route path="/" exact>
-                  <Front_page />
+                  <FrontPage />
             </Route>
             <Route path="/login" exact>
                   <Login />

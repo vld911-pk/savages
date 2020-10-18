@@ -1,11 +1,39 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Select from 'react-select';
+import {fetchContinents,authData} from '../api/fetchApi';
 import './Form.css';  
 
-function Register() {
+const TYPE = 'register';
 
+function Register() {
+  function RegBtn(){
+    return (
+    <div className = "redir_comp">
+        <small className = "small_text">Back to login:</small>
+            <a className = "link" onClick = {() => setRedirect(true)}>login</a>
+    </div>
+    );   
+}
+useEffect(() => {
+  async function continents(){
+    let response = await fetchContinents();
+    let json = await response.json();  
+      setOptions(
+          json.body.map((item) => {
+            return {
+              id : item.id,
+              label : item.continent
+            }
+          })
+        )
+  } 
+  continents();
+  return () =>{
+    setOptions = [];
+  }
+},[]);
 const [form,setForm] = useState({
     name : '',
     surname : '',
@@ -13,14 +41,8 @@ const [form,setForm] = useState({
     password : null,
 });
 const [continent,setContinent] = useState(null);
+let [options,setOptions] = useState([]);
 const [redirect,setRedirect] = useState(false);
-const options = [
-  { id: 1, label: 'Asia' },
-  { id: 2, label: 'Africa' },
-  { id: 3, label: 'Australia' },
-  { id: 4, label: 'North_America' },
-  { id: 5, label: 'South_America' },
-]
 
 const formHandle = (event) =>{
     setForm({...form,[event.target.name] : event.target.value});
@@ -34,15 +56,8 @@ const onSubmit = async (e) =>{
   e.preventDefault();
   try {
    form['continent'] = continent;
-   let response = await fetch('http://localhost:3002/api/register',{
-      method: 'POST',
-      body : JSON.stringify(form),
-      headers: {
-       'Content-Type':'application/json'
-      }
-  });
-  if(response.ok) setRedirect(true);
- 
+   let response = await authData(form,TYPE);
+      if(response.ok) setRedirect(true);
   } catch (error) {
     console.log('fetch error:',error);
   }
@@ -79,6 +94,7 @@ const onSubmit = async (e) =>{
         <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
           Log in
         </Button>
+        <RegBtn />
       </Form>
     </>
   );

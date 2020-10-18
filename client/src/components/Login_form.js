@@ -2,11 +2,12 @@ import React,{useState} from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import './Form.css';  
+import {authData} from '../api/fetchApi';
 
-
+const TYPE = 'login';
 
 function Login() {
-    function Reg_btn(){
+    function RegBtn(){
         return (
         <div className = "redir_comp">
             <small className = "small_text">If you're not register:</small>
@@ -33,13 +34,7 @@ const redirectHandler = () =>{
 const onSubmit = async (e) =>{
   e.preventDefault();
   try {
-   let response = await fetch('http://localhost:3002/api/login',{
-      method: 'POST',
-      body : JSON.stringify(form),
-      headers: {
-       'Content-Type':'application/json'
-      }
-  });
+   await authData(form,TYPE);
   } catch (error) {
     console.log('fetch error:',error);
   }
@@ -61,7 +56,7 @@ const onSubmit = async (e) =>{
         <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
           Sign in
         </Button>
-        <Reg_btn />
+        <RegBtn />
         {redirectHandler()}
       </Form>
     </>

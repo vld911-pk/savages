@@ -2,7 +2,7 @@ const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const user_model = require('../models/userManager');
 
-const hashcompare = async (password, hash) =>{
+const hashcompare = async (password, hash) => {
     return await bcrypt.compare(password, hash);
 }
 
@@ -18,8 +18,14 @@ module.exports = {
         res.send(user);
     },
     getAllContinents : async (req,res) => {
-        let conts = await user_model.getContinents();
-        res.send(conts);
+        try {
+            let conts = await user_model.getContinents();
+            res.json({body : conts});
+            res.send(conts);    
+        } catch (error) {
+            res.status(400);
+        }
+        
     },
 
     registerHandler : async (req,res) =>{
