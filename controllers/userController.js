@@ -1,6 +1,8 @@
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const user_model = require('../models/userManager');
+const jwt = require('jsonwebtoken');
+const jwtConfig = require('config').jwt;
 
 const hashcompare = async (password, hash) => {
     return await bcrypt.compare(password, hash);
@@ -40,7 +42,6 @@ module.exports = {
             let data = req.body;
 
             let [candidate] = await user_model.getUserByEmail(data.email);
-            console.log(candidate);
                 if(candidate){
                    return res.status(400).json({message : 'Email is already exists'});
                 }
@@ -64,17 +65,26 @@ module.exports = {
             console.log('err:',error);
             res.status(500).json({message : 'Server error'});
         }
-    },
+},
     loginHandler : async (req,res) => {
+        const errors = validationResult(req);
+            if(!errors.isEmpty()){
+                res.status(422).json({
+                    errors : errors.array(),
+                })
+                return ;
+            }
         let {email,password} = req.body;
+
             try {
-                let candidate = await user_model.getUserByEmail(email);
-                if(await hashcompare(password,candidate.password)){
-                   
-                    //
+                let [candidate] = await user_model.getUserByEmail(email);
+                let access = await hashcompare(password,candidate.password);
+                if(access){
+                    const token = jwt.sign(candidate.id.toString(),jwtConfig.SECRET);
+                    res.json({token});
 
                 }else{
-                    return res.status(400).json({message : 'Incorrect password'});
+                    return res.status(401).json({message : 'All went wrong with credentials'});
                 }
             } catch (error) {
                 console.log('err:',error);

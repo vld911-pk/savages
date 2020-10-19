@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Select from 'react-select';
 import {fetchContinents,authData} from '../api/fetchApi';
@@ -7,15 +7,18 @@ import './Form.css';
 
 const TYPE = 'register';
 
+
+
 function Register() {
   function RegBtn(){
     return (
     <div className = "redir_comp">
         <small className = "small_text">Back to login:</small>
-            <a className = "link" onClick = {() => setRedirect(true)}>login</a>
+            <span className = "link" onClick = {() => setRedirect(true)}>login</span>
     </div>
     );   
-}
+  }
+ 
 useEffect(() => {
   async function continents(){
     let response = await fetchContinents();
@@ -34,6 +37,7 @@ useEffect(() => {
     setOptions = [];
   }
 },[]);
+const [loading,setLoading] = useState(false);
 const [form,setForm] = useState({
     name : '',
     surname : '',
@@ -54,14 +58,18 @@ const redirectHandler = () =>{
 }
 const onSubmit = async (e) =>{
   e.preventDefault();
+  setLoading(true);
   try {
-   form['continent'] = continent;
-   let response = await authData(form,TYPE);
-      if(response.ok) setRedirect(true);
+    form['continent'] = continent;
+    let response = await authData(form,TYPE);
+        if(response.ok) setRedirect(true);
   } catch (error) {
-    console.log('fetch error:',error);
+     console.log('fetch error:',error);
   }
-    
+  setLoading(false);
+}
+if(loading){
+  return <Spinner  animation="border" className = "spinner" variant="primary"/>
 }
   return (
     <>
@@ -91,7 +99,9 @@ const onSubmit = async (e) =>{
           <Form.Control type="password" placeholder="Password" name = "password" onChange = {formHandle}/>
         </Form.Group>
         {redirectHandler()}
+        
         <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
+        
           Log in
         </Button>
         <RegBtn />

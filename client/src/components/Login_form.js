@@ -11,7 +11,7 @@ function Login() {
         return (
         <div className = "redir_comp">
             <small className = "small_text">If you're not register:</small>
-                <a className = "link" onClick = {() => setRedirect(true)}>register</a>
+                <span className = "link"  onClick = {() => setRedirect(true)}>register</span>
         </div>
         );   
     }

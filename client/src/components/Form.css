@@ -22,4 +22,12 @@
 .link{
     text-decoration: underline;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    color : blue;
+}
+.spinner{
+    position: absolute;
+    left : 0;
+    right : 0;
+    top : calc(50% - 25px);
+    margin : 0 auto;
 }
