@@ -7,8 +7,6 @@ import './Form.css';
 
 const TYPE = 'register';
 
-
-
 function Register() {
   function RegBtn(){
     return (
@@ -62,6 +60,8 @@ const onSubmit = async (e) =>{
   try {
     form['continent'] = continent;
     let response = await authData(form,TYPE);
+    let json = await response.json();
+console.log(json);
         if(response.ok) setRedirect(true);
   } catch (error) {
      console.log('fetch error:',error);

@@ -25,7 +25,14 @@ module.exports = {
             token : jwt.sign(payload,secret,options),
         }
     },
-    replateRefreshToken : (userId, tokenId) => {
-        //
+    replaceRefreshToken : async (userId, tokenId) => {
+      let exist = await model.findAndDeleteTokenByID(userId);
+        if(exist) {
+            let data = {
+                userId,
+                tokenId
+            }
+       await model.setNewRefreshToken(data);
+        }
     }
 }

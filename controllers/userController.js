@@ -3,6 +3,13 @@ const bcrypt = require('bcryptjs');
 const user_model = require('../models/userManager');
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('config').jwt;
+const authHelper = require('../helpers/authHelper');
+
+const updateToken = (userId) => {
+    let access = authHelper.generateAccessToken();
+    let refresh = authHelper.generateRefreshToken();
+    return authHelper.replaceRefreshToken(refresh.id,userId)
+}
 
 const hashcompare = async (password, hash) => {
     return await bcrypt.compare(password, hash);
@@ -40,7 +47,6 @@ module.exports = {
                 return ;
             }
             let data = req.body;
-
             let [candidate] = await user_model.getUserByEmail(data.email);
                 if(candidate){
                    return res.status(400).json({message : 'Email is already exists'});
