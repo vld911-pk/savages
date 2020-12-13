@@ -4,17 +4,25 @@ const user_model = require('../models/userManager');
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('config').jwt;
 const authHelper = require('../helpers/authHelper');
+const userManager = require('../models/userManager');
 
 const updateToken = (userId) => {
-    let access = authHelper.generateAccessToken();
-    let refresh = authHelper.generateRefreshToken();
-    return authHelper.replaceRefreshToken(refresh.id,userId)
+    let accessToken = authHelper.generateAccessToken();
+    let refreshToken = authHelper.generateRefreshToken();
+    return authHelper.replaceRefreshToken(refreshToken.id,userId)
+        .then(() => ({
+            accessToken,
+            refreshToken : refreshToken.token
+        }));
 }
 
 const hashcompare = async (password, hash) => {
-    return await bcrypt.compare(password, hash);
+    return await bcrypt.compare(password, hash, function(err, result) {
+        if (err) { throw (err); }
+        console.log(result);
+    });
 }
-
+ 
 module.exports = {
     
     getAllUsers : async (req,res) => {
@@ -68,33 +76,51 @@ module.exports = {
 
             res.status(200).json({message : "data has been received"});    
         } catch (error) {
-            console.log('err:',error);
             res.status(500).json({message : 'Server error'});
         }
 },
     loginHandler : async (req,res) => {
         const errors = validationResult(req);
             if(!errors.isEmpty()){
-                res.status(422).json({
+                res.status(401).json({
                     errors : errors.array(),
                 })
                 return ;
             }
         let {email,password} = req.body;
-
-            try {
-                let [candidate] = await user_model.getUserByEmail(email);
+        try {
+            let [candidate] = await user_model.getUserByEmail(email);
                 let access = await hashcompare(password,candidate.password);
                 if(access){
-                    const token = jwt.sign(candidate.id.toString(),jwtConfig.SECRET);
-                    res.json({token});
-
+                    const token = updateToken(candidate.id).then(tokens => res.json({tokens}));
                 }else{
                     return res.status(401).json({message : 'All went wrong with credentials'});
                 }
             } catch (error) {
-                console.log('err:',error);
                 res.status(500).json({message : 'Server error'});
             }
-    }
+    },
+    refreshTokens : async (req,res) => {
+        const { refreshToken } = req.body;
+        let payload;
+        try {
+            payload = jwt.verify(refreshToken,jwtConfig.SECRET);
+            if(payload.type !== 'refresh'){
+                res.status(400).json({message : 'Invalid token'})
+                return;
+            }
+
+        } catch (error) {
+            if( error instanceof jwt.TokenExpiredError){
+                res.status(400).json({message : 'Token expired'});
+                return ;
+            }
+        }
+        const [token] = await userManager.findTokenById(payload.id);
+            if(token === null){
+                throw new Error('Invalid token');
+            }
+        
+        return updateToken(token.user_id);
+   }
 }

@@ -6,15 +6,15 @@ module.exports = {
     PASSWORD : "cbb77ce0afa9c6e9e5af648dc66a7898b356f74d9c8649d37cfed34699ca6185",
     jwt : {
         SECRET   : "FSOCIETY",
-            tokens : {
-                acsess : {
-                    type : "access",
-                    expiresIn : '2m'
-                },
-                refresh : {
-                    type : "refresh",
-                    expiresIn : '3m'
-                },
+        tokens : {
+            access : {
+                type : "access",
+                expiresIn : '2m'
+            },
+            refresh : {
+                type : "refresh",
+                expiresIn : '3m'
             },
         },
+    },
 }

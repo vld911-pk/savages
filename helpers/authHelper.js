@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {secret,tokens} = require('config').jwt;
+const {SECRET,tokens} = require('config').jwt;
 const uuid = require('uuid/v4');
 const model = require('../models/userManager');
 
@@ -11,7 +11,7 @@ module.exports = {
         }
         const options = {expiresIn:tokens.access.expiresIn}
 
-        return jwt.sign(payload,secret,options);
+        return jwt.sign(payload,SECRET,options);
     },
     generateRefreshToken : () =>{
         const payload = {
@@ -22,13 +22,13 @@ module.exports = {
 
         return {
             id : payload.id,
-            token : jwt.sign(payload,secret,options),
+            token : jwt.sign(payload,SECRET,options),
         }
     },
     replaceRefreshToken : async (userId, tokenId) => {
-      let exist = await model.findAndDeleteTokenByID(userId);
+      const exist = await model.findAndDeleteTokenByID(userId);
         if(exist) {
-            let data = {
+            const data = {
                 userId,
                 tokenId
             }

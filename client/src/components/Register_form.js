@@ -20,7 +20,8 @@ function Register() {
 useEffect(() => {
   async function continents(){
     let response = await fetchContinents();
-    let json = await response.json();  
+    let json = await response.json();
+    console.log('json',json);  
       setOptions(
           json.body.map((item) => {
             return {
@@ -31,9 +32,6 @@ useEffect(() => {
         )
   } 
   continents();
-  return () =>{
-    setOptions = [];
-  }
 },[]);
 const [loading,setLoading] = useState(false);
 const [form,setForm] = useState({
@@ -102,7 +100,7 @@ if(loading){
         
         <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
         
-          Log in
+          Sign in
         </Button>
         <RegBtn />
       </Form>

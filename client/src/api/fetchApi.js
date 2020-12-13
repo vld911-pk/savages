@@ -3,7 +3,7 @@ async function ajaxHandler(url = '',params = {}){
 }
 
 export async function fetchContinents(){
-    return await ajaxHandler('http://localhost:3002/api/continents')
+    return await ajaxHandler('http://localhost:3002/api/continents',{method : 'GET'})
 }
 export async function authData(form,type){
     return await ajaxHandler(`http://localhost:3002/api/${type}`,{
