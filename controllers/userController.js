@@ -6,21 +6,18 @@ const jwtConfig = require('config').jwt;
 const authHelper = require('../helpers/authHelper');
 const userManager = require('../models/userManager');
 
-const updateToken = (userId) => {
+const updateToken = async (userId) => {
     let accessToken = authHelper.generateAccessToken();
     let refreshToken = authHelper.generateRefreshToken();
-    return authHelper.replaceRefreshToken(refreshToken.id,userId)
-        .then(() => ({
+    await authHelper.replaceRefreshToken(refreshToken.id,userId);
+        return {
             accessToken,
             refreshToken : refreshToken.token
-        }));
+        };
 }
 
 const hashcompare = async (password, hash) => {
-    return await bcrypt.compare(password, hash, function(err, result) {
-        if (err) { throw (err); }
-        console.log(result);
-    });
+    return await bcrypt.compare(password, hash);
 }
  
 module.exports = {
@@ -55,6 +52,7 @@ module.exports = {
                 return ;
             }
             let data = req.body;
+            console.log('registerData',data);
             let [candidate] = await user_model.getUserByEmail(data.email);
                 if(candidate){
                    return res.status(400).json({message : 'Email is already exists'});
@@ -90,9 +88,11 @@ module.exports = {
         let {email,password} = req.body;
         try {
             let [candidate] = await user_model.getUserByEmail(email);
+
                 let access = await hashcompare(password,candidate.password);
                 if(access){
-                    const token = updateToken(candidate.id).then(tokens => res.json({tokens}));
+                  let tokens = await updateToken(candidate.id);
+                  res.status(200).json({tokens});
                 }else{
                     return res.status(401).json({message : 'All went wrong with credentials'});
                 }
@@ -116,7 +116,7 @@ module.exports = {
                 return ;
             }
         }
-        const [token] = await userManager.findTokenById(payload.id);
+        const [token] = await userManager.findTokenByTokenId(payload.id);
             if(token === null){
                 throw new Error('Invalid token');
             }

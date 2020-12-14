@@ -56,13 +56,10 @@ const onSubmit = async (e) =>{
   e.preventDefault();
   setLoading(true);
   try {
-    form['continent'] = continent;
-    let response = await authData(form,TYPE);
-    let json = await response.json();
-console.log(json);
-        if(response.ok) setRedirect(true);
+    const response = await authData({...form,continent : continent},TYPE);
+    setRedirect(true);
   } catch (error) {
-     console.log('fetch error:',error);
+     throw new Error(error);
   }
   setLoading(false);
 }
@@ -98,8 +95,7 @@ if(loading){
         </Form.Group>
         {redirectHandler()}
         
-        <Button variant="primary" className = "m-btn" onClick = {onSubmit}>
-        
+        <Button variant="primary" className = "m-btn" onClick = {onSubmit}>      
           Sign in
         </Button>
         <RegBtn />

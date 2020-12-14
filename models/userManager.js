@@ -9,8 +9,9 @@ module.exports = {
     setRegisterData : async (user_data) => await knex('users').returning('id').insert(user_data),
     setIds : async (ids) => await knex('ids').insert(ids),
 
-    findAndDeleteTokenByID : async (user_id) => await knex('tokens').where({user_id}).del(),
-    setNewRefreshToken : async(data) => await knex('tokens').insert(data),
+    findTokenByUserID : async (user_id) => await knex('tokens').select('token_id').where({user_id}),
+    deleteTokenByUserID : async (user_id) => await knex('tokens').where({user_id}).del(),
+    setNewRefreshToken : async(data) => await knex('tokens').insert(data).returning('id'),
+    findTokenByTokenId : async (token_id) => await knex('tokens').select('token_id').where({token_id}),
 
-    findTokenById : async (token_id) => await knex('tokens').select('token_id').where({token_id}),
 }

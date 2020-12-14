@@ -6,7 +6,7 @@ const userRouter = Router();
 const jwtMiddleware = require('../middleware/auth');
 
 //GET
-userRouter.get('/users',jwtMiddleware,userController.getAllUsers);
+userRouter.get('/users',userController.getAllUsers);
 userRouter.get('/users/:id',userController.getUserById);
 userRouter.get('/continents',userController.getAllContinents);
 //POST

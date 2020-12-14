@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {SECRET,tokens} = require('config').jwt;
-const uuid = require('uuid/v4');
+const { v4: uuid_v4 } = require('uuid');
 const model = require('../models/userManager');
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     },
     generateRefreshToken : () =>{
         const payload = {
-            id : uuid(),
+            id : uuid_v4(),
             type : tokens.refresh.type,
         }
         const options = {expiresIn: tokens.refresh.expiresIn}
@@ -25,14 +25,18 @@ module.exports = {
             token : jwt.sign(payload,SECRET,options),
         }
     },
-    replaceRefreshToken : async (userId, tokenId) => {
-      const exist = await model.findAndDeleteTokenByID(userId);
-        if(exist) {
-            const data = {
-                userId,
-                tokenId
-            }
-       await model.setNewRefreshToken(data);
+    replaceRefreshToken : async (token_id, user_id) => {
+       try {
+        const [exists] = await model.findTokenByUserID(user_id);
+        if(exists) {
+           await model.deleteTokenByUserID(user_id); 
         }
+        else console.log('fuck');
+             let [id] = await model.setNewRefreshToken({user_id,token_id});   
+             console.log('di',id);
+       } catch (error) {
+           console.log(error);
+       }
+        
     }
 }

@@ -33,14 +33,8 @@ const redirectHandler = () =>{
 
 const onSubmit = async (e) =>{
   e.preventDefault();
-  try {
   const token = await authData(form,TYPE);
-  localStorage.setItem('jwt');
   console.log('token',token);
-  } catch (error) {
-    console.log('fetch error:',error);
-  }
-    
 }
   return (
     <>
