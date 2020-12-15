@@ -1,10 +1,12 @@
 import React from 'react';
+import H1 from './common-components/H1';
+import FrontWrapper from '../components/styled-components/FrontWrapper';
 
-
-function Front(){
+function Front() {
     return (
-       <>
-       </>
+        <FrontWrapper>
+            <H1>Test your memory here</H1>
+        </FrontWrapper>
     );
 }
 export default Front;
