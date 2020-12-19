@@ -91,8 +91,8 @@ module.exports = {
 
                 let access = await hashcompare(password,candidate.password);
                 if(access){
-                  let tokens = await updateToken(candidate.id);
-                  res.status(200).json({tokens});
+                  const {accessToken ,refreshToken} = await updateToken(candidate.id);
+                  res.status(200).json({accessToken ,refreshToken});
                 }else{
                     return res.status(401).json({message : 'All went wrong with credentials'});
                 }

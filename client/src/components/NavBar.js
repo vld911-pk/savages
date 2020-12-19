@@ -2,7 +2,7 @@ import CustomButton from './common-components/Button';
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import './NavBar.css';
-import SignBtn from './Nav_components/Sign_Button';
+import SignBtn from  './styled-components/Nav_components/Sign_Button'
 import NavInformWrapper from './styled-components/NavInformWrapper';
 import ModalWindow from './ModalTools/ModalWindow';
 
