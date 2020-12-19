@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState, } from "react";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { authData } from '../api/fetchApi';
-import { isFormDirtyCheck } from '../frontHelpers/validationHelper'
+import { isFormDirtyCheck } from '../frontHelpers/validationHelper';
 
+import ErrorMessage from "./styled-components/ErrorMessage";
 import './Form.css';
 
 const TYPE = 'login';
@@ -19,12 +20,13 @@ function Login() {
   }
 
   const [redirect, setRedirect] = useState(false);
-  const [validatedForm , setValidation] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [validatedForm, setValidation] = useState({});
   const [form, setForm] = useState({
     email: '',
     password: null,
   });
-  
+
   const formHandle = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   }
@@ -33,14 +35,21 @@ function Login() {
       return <Redirect to='/register' />
     }
   }
-  
+  if (loading) {
+    return <Spinner animation="border" className="spinner" variant="primary" />
+  }
   const onSubmit = async (e) => {
     e.preventDefault();
-    setValidation(isFormDirtyCheck(form));
-    const tokens = await authData(form, TYPE);
-    for (const [key, token] of Object.entries(tokens)) {
-      localStorage.setItem(key, token);
+    setLoading(true);
+    const isValid = isFormDirtyCheck(form);
+    await setValidation(() => ({ ...validatedForm, ...isFormDirtyCheck(form) }));
+    if (!isValid.email && !isValid.password) {
+      const tokens = await authData(form, TYPE);
+      for (const [key, token] of Object.entries(tokens)) {
+        localStorage.setItem(key, token);
+      }
     }
+    setLoading(false);
   }
   return (
     <>
@@ -49,24 +58,23 @@ function Login() {
         <Form.Group controlId="formBasicEmail">
           <Form.Label className="m-label">Email:</Form.Label>
           <br />
-          <Form.Control type="text" placeholder="email" name="email" onChange={formHandle} />
+          <Form.Control type="text" placeholder="email" name="email" value={form.email} onChange={formHandle} />
           {!!validatedForm.email ?
-            (<p style={{ color: 'red' }}> Empty field, please fill out </p>)
+            (<ErrorMessage > Empty field, please fill out </ErrorMessage>)
             : null}
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label className="m-label">Password:</Form.Label>
           <br />
-          <Form.Control type="password" placeholder="Password" name="password" onChange={formHandle} />
+          <Form.Control type="password" placeholder="Password" name="password" value={form.password} onChange={formHandle} />
           {!!validatedForm.password ?
-            (<p style={{ color: 'red' }}> Empty field, please fill out </p>)
+            (<ErrorMessage > Empty field, please fill out </ErrorMessage>)
             : null}
         </Form.Group>
         <Button variant="primary" className="m-btn" onClick={onSubmit} >
-          Sign in
+          Log in
         </Button>
         <RegBtn />
-        {'asd',console.log(isFormDirtyCheck(form)) }
         {redirectBetweenForms()}
       </Form>
     </>
