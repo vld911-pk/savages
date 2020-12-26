@@ -43,9 +43,9 @@ function Login() {
     setLoading(true);
     const isValid = isFormDirtyCheck(form);
     await setValidation(() => ({ ...validatedForm, ...isFormDirtyCheck(form) }));
-    if (!isValid.email && !isValid.password) {
-      const tokens = await authData(form, TYPE);
-      for (const [key, token] of Object.entries(tokens)) {
+    if (!isValid.email && !isValid.password) {              //true params - errors exists, false params - no errors
+      const {responded ,status} = await authData(form, TYPE);
+      for (const [key, token] of Object.entries(responded)) {
         localStorage.setItem(key, token);
       }
     }

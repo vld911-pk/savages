@@ -13,5 +13,6 @@ export async function authData(form,type){
                 'Content-Type':'application/json'
             } 
         })
-        return response.json();
+    const json = await response.json();
+        return {responsed : json, status : response.status};
     }

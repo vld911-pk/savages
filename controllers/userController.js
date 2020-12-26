@@ -52,7 +52,6 @@ module.exports = {
                 return ;
             }
             let data = req.body;
-            console.log('registerData',data);
             let [candidate] = await user_model.getUserByEmail(data.email);
                 if(candidate){
                    return res.status(400).json({message : 'Email is already exists'});
