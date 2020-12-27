@@ -6,6 +6,7 @@ const jwtConfig = require('config').jwt;
 const authHelper = require('../helpers/authHelper');
 const userManager = require('../models/userManager');
 
+
 const updateToken = async (userId) => {
     let accessToken = authHelper.generateAccessToken();
     let refreshToken = authHelper.generateRefreshToken();
@@ -79,7 +80,7 @@ module.exports = {
     loginHandler : async (req,res) => {
         const errors = validationResult(req);
             if(!errors.isEmpty()){
-                res.status(401).json({
+                res.status(422).json({
                     errors : errors.array(),
                 })
                 return ;
@@ -87,7 +88,9 @@ module.exports = {
         let {email,password} = req.body;
         try {
             let [candidate] = await user_model.getUserByEmail(email);
-
+                if(!candidate){
+                    res.status(401).json({message : 'User not found,please check your email'})
+                }
                 let access = await hashcompare(password,candidate.password);
                 if(access){
                   const {accessToken ,refreshToken} = await updateToken(candidate.id);

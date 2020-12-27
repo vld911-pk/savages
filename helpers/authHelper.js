@@ -33,7 +33,6 @@ module.exports = {
         }
         else console.log('fuck');
              let [id] = await model.setNewRefreshToken({user_id,token_id});   
-             console.log('di',id);
        } catch (error) {
            console.log(error);
        }

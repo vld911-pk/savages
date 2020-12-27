@@ -8,7 +8,8 @@ const ErrorPopUp = styled.div`
     border-radius : 20px;
     opacity : 0.8;
     text-align : center;
-    margin : 10px;
+    color : black;
+    margin : 8px;
     padding : 3px;
 `
 export default ErrorPopUp;

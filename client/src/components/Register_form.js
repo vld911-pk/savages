@@ -42,7 +42,6 @@ function Register() {
   const [options, setOptions] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  console.log(errorMessage, ')');
   const formHandle = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   }
