@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
-//import { selectUserToken } from '../../selectors/userDataSelector';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
-const PublicRouter = () =>{
+const PublicRouter = ({ token, component: Component, ...rest }) => {
+  return (
     <Route
-    {...rest}
-    render={(props) => (!token ? <Component { ...props } />
-      : <Redirect to={{ pathname: '/'}} />)}
-  />
-}
+      {...rest}
+      render={(props) =>
+        !token ? <Component {...props} /> : <Redirect to={{ pathname: "/" }} />
+      }
+    />
+  );
+};
+export default PublicRouter;

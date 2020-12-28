@@ -13,10 +13,8 @@ function SignButton() {
     }
     return (
         <>
-            <div >
                 {clickHandler()}
                 <button onClick={() => { setRedirect(true) }} style={{ flex: "2" }} className="btn btn-outline-primary">Sign in</button>
-            </div>
         </>
     );
 }

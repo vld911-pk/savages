@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import { Form, Button, Spinner } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Select from 'react-select';
 import { fetchContinents, authData } from '../api/fetchApi';
+import { continentsAction } from '../actions/continentsAction';
 import { isFormDirtyCheck } from '../frontHelpers/validationHelper';
 
 import ErrorMessage from "./styled-components/ErrorMessage";
@@ -11,11 +13,13 @@ import Flexed from "./styled-components/Flexed";
 
 import './Form.css';
 
+
 const TYPE = 'register';
-function Register() {
+function Register({continents, getAllContinents}) {
 
   useEffect(() => {
     async function continents() {
+      getAllContinents();
       const response = await fetchContinents();
       const json = await response.json();
       setOptions(
@@ -132,4 +136,11 @@ function Register() {
     </>
   );
 }
-export default Register;
+const mapStateToProps = (state) => ({
+  continents : state.continents,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getAllContinents : () => dispatch(continentsAction())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register);
