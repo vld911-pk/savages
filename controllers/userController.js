@@ -30,7 +30,6 @@ module.exports = {
     getUserById : async (req,res) => {
         let id = req.params.id;
         let [user] = await user_model.getUserById(id);
-        console.log('user',user);
         res.send(user);
     },
     getAllContinents : async (req,res) => {

@@ -5,7 +5,10 @@ module.exports = {
     await knex("users").select("id", "name", "surname", "email", "password"),
 
   getUserById: async (id) =>
-    await knex("users").select("*").where("id", "=", id),
+    await knex("users").select("*").where("id", "=", id)
+      // .join("ids","ids.user_id", "=", "users.id")
+      // .join("continents", "ids.continent_id", "=", "continents.id")
+    ,
 
   getUserByEmail: async (email) =>
     await knex("users")
