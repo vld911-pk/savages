@@ -1,18 +1,33 @@
-async function ajaxHandler(url = '',params = {}){
-    return await fetch(url,params);
+async function ajaxHandler(url = "", params = {}) {
+  return await fetch(url, params);
 }
 
-export async function fetchContinents(){
-    return await ajaxHandler('http://localhost:3002/api/continents',{method : 'GET'})
+export async function fetchContinents() {
+  return await ajaxHandler("http://localhost:3002/api/continents", {
+    method: "GET",
+  });
 }
-export async function authData(form,type){
-    const response =  await ajaxHandler(`http://localhost:3002/api/${type}`,{
-            method: 'POST',
-            body : JSON.stringify(form),
-            headers: {
-                'Content-Type':'application/json'
-            } 
-        })
-    const json = await response.json();
-        return {responsed : json, status : response.status};
+export async function authData(form, type) {
+  const response = await ajaxHandler(`http://localhost:3002/api/${type}`, {
+    method: "POST",
+    body: JSON.stringify(form),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  return { responsed: json, status: response.status };
+}
+
+export async function getUserData(userId) {
+  const response = await ajaxHandler(
+    `http://localhost:3002/api/users/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
+  );
+  return await response.json();
+}

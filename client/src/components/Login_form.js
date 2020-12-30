@@ -74,8 +74,8 @@ function Login() {
       <Flexed>
         {errorMessage.length !== 0 && (
           <ErrorPopUp width={"600px"} height={"45px"}>
-            {errorMessage.map((err) => {
-              return <p>{err}</p>;
+            {errorMessage.map((err ,index) => {
+              return <p key = {index}>{err}</p>;
             })}
           </ErrorPopUp>
         )}

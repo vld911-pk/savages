@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import ButtonWithImage from "../common-components/ButtonWithImage";
 import Img from "../common-components/Img";
 
-import { removeTokensFromLocalStorage } from "../../frontHelpers/tokenHelper";
+import { removeTokensAndIdFromLocalStorage } from "../../frontHelpers/tokenHelper";
 
 const Logout = () => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const Logout = () => {
         width={"40px"}
         height={"40px"}
         onClick={() => {
-          removeTokensFromLocalStorage();
+          removeTokensAndIdFromLocalStorage();
           history.push("/");
         }}
       >

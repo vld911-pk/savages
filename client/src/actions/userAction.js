@@ -1,7 +1,7 @@
-import { getUser } from "../api/fetchApi";
+import { getUserData } from "../api/fetchApi";
 import { GET_USER } from '../constants/actionTypes'
 
-export const userAction = () => ({
+export const userAction = (userId) => ({
   type: GET_USER,
-  payload: getUser(),
+  payload: getUserData(userId),
 });

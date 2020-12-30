@@ -29,7 +29,8 @@ module.exports = {
     },
     getUserById : async (req,res) => {
         let id = req.params.id;
-        let user = await user_model.getUserById(id);
+        let [user] = await user_model.getUserById(id);
+        console.log('user',user);
         res.send(user);
     },
     getAllContinents : async (req,res) => {
@@ -94,7 +95,7 @@ module.exports = {
                 let access = await hashcompare(password,candidate.password);
                 if(access){
                   const {accessToken ,refreshToken} = await updateToken(candidate.id);
-                  res.status(200).json({accessToken ,refreshToken});
+                  res.status(200).json({accessToken ,refreshToken, user_id : candidate.id});
                 }else{
                     return res.status(401).json({message : 'All went wrong with credentials'});
                 }

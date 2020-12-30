@@ -7,8 +7,8 @@ export const doesTokenExists = () =>{
   const token = localStorage.getItem('accessToken');
   return Boolean(token);
 }
-export const removeTokensFromLocalStorage = () => {
-  const tokens = ["accessToken","refreshToken"];
+export const removeTokensAndIdFromLocalStorage = () => {
+  const tokens = ["accessToken","refreshToken","user_id"];
   for (const key of tokens) {
     localStorage.removeItem(key);
   }
