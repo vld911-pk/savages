@@ -29,6 +29,7 @@ function ProfileButton() {
             width={"40px"}
             height={"40px"}
             radius={"50%"}
+            border={true}
           />
         </ButtonWithImage>
       </div>

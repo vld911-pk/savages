@@ -24,6 +24,7 @@ const Logout = () => {
           width={"40px"}
           height={"40px"}
           radius={"50%"}
+          border={true}
         />
       </ButtonWithImage>
     </>

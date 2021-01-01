@@ -12,7 +12,7 @@ const history = useHistory();
       <Grid>
         <GridItem onClick = {() => history.push('/user/admin/cards')}>   Cards </GridItem>
         <GridItem onClick = {() => history.push('/user/admin/numbers')}> Numbers </GridItem>
-        <GridItem onClick = {() => history.push('/user/admin/empty')}> ... </GridItem>
+        <GridItem onClick = {() => history.push('/user/admin/empty')}>   ... </GridItem>
       </Grid>
     </React.Fragment>
   );
