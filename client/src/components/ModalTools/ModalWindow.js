@@ -4,16 +4,14 @@ import CustomButton from '../common-components/Button';
 import TransparentBackground from '../styled-components/TransparentBackground';
 import Paragraph from '../common-components/Paragraph';
 
-const ModalWindow = ({ setModalInfo }) => {
+const ModalWindow = ({ info ,setModalInfo }) => {
     return (
         <React.Fragment>
             <TransparentBackground onClick={() => setModalInfo(false)}>
                 <StyledModalWindow onClick={e => e.stopPropagation()}>
 
                     <Paragraph> 
-                        Hi ,glad to represent demo vesion of my memory training cite!
-                        Hope you will enjoy playing this memory card game and improve 
-                        your brain skills
+                        { info }
                     </Paragraph>
 
                     <CustomButton onClick={() => setModalInfo(false)} width={'100px'} variant="outline-info" > Close </CustomButton>

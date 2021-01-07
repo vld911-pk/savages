@@ -1,13 +1,13 @@
 import {GET_CONTINENTS} from '../constants/actionTypes'
 
 const initialState = {
-    continents : [],
+    payload : [],
     loading : false,
 };
-export const continentsReducer = (state = initialState ,action) =>{
-    switch(action.type){
+export const continentsReducer = (state = initialState ,{type ,payload}) =>{
+    switch(type){
         case GET_CONTINENTS : 
-            return {...state, continents : action.payload}
+            return {...state, payload}
         default : 
             return state; 
     }

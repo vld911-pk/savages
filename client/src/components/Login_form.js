@@ -9,6 +9,7 @@ import ErrorMessage from "./styled-components/ErrorMessage";
 import "./Form.css";
 import Flexed from "./styled-components/Flexed";
 import ErrorPopUp from "./styled-components/ErrorPopUp";
+import { groupBy } from "../../../db";
 
 const TYPE = "login";
 
@@ -36,6 +37,10 @@ function Login() {
   const formHandle = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
+
+  cost formhandlegrop = () =>{
+    setStateGroup({...groupBy,function()})
+  }
   const redirectBetweenForms = () => {
     if (redirect) return <Redirect to="/register" />;
   };

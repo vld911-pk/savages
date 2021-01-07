@@ -17,23 +17,6 @@ import './Form.css';
 const TYPE = 'register';
 function Register({continents, getAllContinents}) {
 
-  useEffect(() => {
-    async function continents() {
-      getAllContinents();
-      const response = await fetchContinents();
-      const json = await response.json();
-      setOptions(
-        json.body.map((item) => {
-          return {
-            id: item.id,
-            label: item.continent
-          }
-        })
-      )
-    }
-    continents();
-  }, []);
-
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -46,6 +29,24 @@ function Register({continents, getAllContinents}) {
   const [options, setOptions] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    async function getContinents() {
+      getAllContinents();
+       const response = await fetchContinents();
+       const json = await response.json();
+      setOptions(
+        json.body.map((item) => {
+          return {
+            id: item.id,
+            label: item.continent
+          }
+        })
+      )
+    }
+    getContinents();
+  }, []);
+
   const formHandle = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   }
@@ -137,7 +138,7 @@ function Register({continents, getAllContinents}) {
   );
 }
 const mapStateToProps = (state) => ({
-  continents : state.continents,
+  continents : state.continents.payload.body,
 });
 const mapDispatchToProps = (dispatch) => ({
   getAllContinents : () => dispatch(continentsAction())

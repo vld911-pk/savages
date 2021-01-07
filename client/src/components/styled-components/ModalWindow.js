@@ -6,7 +6,8 @@ const StyledModalWindow = styled.div`
     flex-direction : column;
     justify-content : space-between;
     width  : 40%;
-    height : 30%;
+    height : auto;
+    min-height : 300px;
     border : 10px solid #0c0c47;
     border-radius : 10px;
     background-color : white;

@@ -5,6 +5,7 @@ const Input = styled.input`
    height : ${({height}) => height}; 
    text-align : center;
    -moz-user-select: none;  
-   font-size : ${({font}) => font}
+   font-size : ${({font}) => font};
+   margin : 30px;
 `
 export default Input;

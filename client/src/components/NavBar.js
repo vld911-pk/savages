@@ -11,6 +11,8 @@ import ProfileButton from "../components/styled-components/Nav_components/Profil
 
 import { doesTokenExists } from "../frontHelpers/tokenHelper";
 
+import {genInfo} from '../text_files/general_info';
+
 function NavBar() {
   let history = useHistory();
   const token = doesTokenExists();
@@ -48,7 +50,7 @@ function NavBar() {
           </CustomButton>
         </NavInformWrapper>
         {modalInfo && (
-          <ModalWindow modalInfo={modalInfo} setModalInfo={setModalInfo} />
+          <ModalWindow info = {genInfo} modalInfo={modalInfo} setModalInfo={setModalInfo} />
         )}
         <NavAuthButWrapper>
           {token ? (
