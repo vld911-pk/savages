@@ -10,7 +10,6 @@ import TaskHeaderComponent from "./components/TaskHeaderComponent";
 import Paragraph from "../../../../common-components/Paragraph";
 
 import {numsInfo} from "../../../../../text_files/number_game";
-import { useCustomState } from "../../../../../customHooks/useCustomState";
 
 function generateRandomNumbers([min ,max]) {
     const num1 = Math.floor(Math.random() * (max - min)) + min;
@@ -24,8 +23,8 @@ function Exersice() {
     let answer = null;
    
     const [score, setScore] = useState(0);
-    const [modalInfo, setModalInfo] = useCustomState(false);
-    const [modalOptInfo, setOptModalInfo] = useCustomState(false);
+    const [modalInfo, setModalInfo] = useState(false);
+    const [modalOptInfo, setOptModalInfo] = useState(false);
     const [complexity, setComplexity] = useState(1);
     const [taskCount, setTaskCount] = useState('5');
     const [passedTasks, setPassedTasks] = useState(0);
