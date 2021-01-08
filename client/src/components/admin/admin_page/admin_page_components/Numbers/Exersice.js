@@ -10,6 +10,7 @@ import TaskHeaderComponent from "./components/TaskHeaderComponent";
 import Paragraph from "../../../../common-components/Paragraph";
 
 import {numsInfo} from "../../../../../text_files/number_game";
+import Timer from "../Timer";
 
 function generateRandomNumbers([min ,max]) {
     const num1 = Math.floor(Math.random() * (max - min)) + min;
@@ -27,6 +28,7 @@ function Exersice() {
     const [modalOptInfo, setOptModalInfo] = useState(false);
     const [complexity, setComplexity] = useState(1);
     const [taskCount, setTaskCount] = useState('5');
+    const [taskTime, setTaskTime] = useState('1m');
     const [passedTasks, setPassedTasks] = useState(0);
     const [range, setRange] = useState([]);
     
@@ -45,8 +47,10 @@ function Exersice() {
     }
     const compareAnswer = () =>{
         if(passedTasks >= taskCount){ 
-           setPassedTasks(0);
-           setScore(0); 
+            Promise.all([
+                setPassedTasks(0),
+                setScore(0),
+            ])
            return ;
         };
         if(Number(answer) === result){
@@ -75,7 +79,10 @@ function Exersice() {
         
         <TaskHeaderComponent complexity = {complexity} score = {score} setModalInfo={setModalInfo} setOptModalInfo={setOptModalInfo}/>
             <ExersiceWrapper >
-                <Paragraph>{passedTasks}/{taskCount}</Paragraph>
+                <div style = {{'display' : 'flex', 'text-align' : 'center','justify-content':'space-around'}}>
+                    <Paragraph params={'0px 15px 0px 15px'}>{passedTasks}/{parseInt(taskCount)} tasks</Paragraph>
+                    <Timer passedTasks = {passedTasks} time = {taskTime} setPassedTasks = {setPassedTasks}/>
+                </div>
                 <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num1} />x
                 <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num2}/>
                     <br />=<br />
@@ -87,15 +94,21 @@ function Exersice() {
                     }}> Confirm </CustomButton>
 
                 {modalInfo && (
-                        <ModalWindow info = {numsInfo} setModalInfo={setModalInfo} />
+                        <ModalWindow 
+                            info = {numsInfo}
+                            setModalInfo={setModalInfo} 
+                        />
                 )}
                 {modalOptInfo && (
                          <OptionsModalWindow 
                             taskC = {taskCount} 
                             complexity = {complexity}
+                            taskTime = {taskTime}
+                            setTaskTime = {setTaskTime}
                             setTaskCount = {setTaskCount} 
                             setOptModalInfo={setOptModalInfo} 
                             handleComplexity = {handleComplexity} 
+                            setPassedTasks = {setPassedTasks}
                         />
                 )}
             </ExersiceWrapper>

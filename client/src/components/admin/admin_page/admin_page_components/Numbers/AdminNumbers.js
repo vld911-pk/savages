@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import Img from "../../../../common-components/Img";
 import Paragraph from "../../../../common-components/Paragraph";
 
 import NumberWrapper from "./styles/NumberWrapper";
@@ -9,7 +8,6 @@ import NumberStatistic from "./styles/NumberStatistic";
 import Exersice from "./Exersice";
 
 function AdminNumbers() {
-
   return (
     <React.Fragment>
       <NumberWrapper>
@@ -20,10 +18,13 @@ function AdminNumbers() {
         <NumberStatistic>
           <Paragraph>Statistic :</Paragraph>
           <hr />
-          <Paragraph color={"red"}> MaxScore : 300 </Paragraph>
+          <div style={{'display' : 'flex','justify-content':'space-between','padding':'5px'}}>
+            <Paragraph color={'grey'} font={'17px'}>Number game</Paragraph>
+            <Paragraph color={"red"} font={'17px'} > MaxScore : 300 </Paragraph>
+          </div>
+          <hr />
         </NumberStatistic>
       </NumberWrapper>
-
     </React.Fragment>
   );
 }
