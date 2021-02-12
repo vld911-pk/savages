@@ -25,7 +25,7 @@ function Login() {
     );
   }
   const history = useHistory();
-  let [errorMessage, setErrorMessage] = useState([]);
+  let [errorMessage, setErrorMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [validatedForm, setValidation] = useState({});
@@ -60,7 +60,7 @@ function Login() {
       //true params - errors exists, false params - no errors
       const { responsed, status } = await authData(form, TYPE);
       if (status >= 400 && status < 600 && status !== 422) {
-        errorMessage.push(responsed.message);
+        setErrorMessage(responsed.message);
       } else if (status === 422) {
         setErrorMessage(responsed.errors.map((err) => err.msg));
       } else {
@@ -77,9 +77,7 @@ function Login() {
       <Flexed>
         {errorMessage.length !== 0 && (
           <ErrorPopUp width={"600px"} height={"45px"}>
-            {errorMessage.map((err ,index) => {
-              return <p key = {index}>{err}</p>;
-            })}
+            {errorMessage}
           </ErrorPopUp>
         )}
         <Form className="form">

@@ -4,10 +4,12 @@ const StyledModalWindow = styled.div`
     position : absolute;
     display : flex;
     flex-direction : column;
+    text-align : center;
+    align-items : center;
     justify-content : space-between;
-    width  : 40%;
+    width  : ${({width}) => width ? width : '40%'};
     height : auto;
-    min-height : 300px;
+    min-height : 350px;
     border : 10px solid #0c0c47;
     border-radius : 10px;
     background-color : white;

@@ -19,6 +19,18 @@ export async function authData(form, type) {
   return { responsed: json, status: response.status };
 }
 
+export function updateUserData(id,form) {
+  return ajaxHandler(`http://localhost:3002/api/users/${id}`,{
+    method: "PUT",
+    body: JSON.stringify(form),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(data => data.json())
+  .catch(err => console.log(err));
+}
+
 export async function getUserData(userId) {
   const response = await ajaxHandler(
     `http://localhost:3002/api/users/${userId}`,

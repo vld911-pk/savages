@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const ProfilePlace = styled.div`
-   width : 50%;
-   height : 500px;
+   display : flex;
+   justify-content : space-around;
+   width : 40%;
+   height : auto;
+   min-height : 350px;
    position : relative;
    background-color: lightgrey;
    border-radius: 15px;
@@ -11,6 +14,6 @@ const ProfilePlace = styled.div`
    margin : 5px;
    padding : 5px;
    top : 80px;
-   left : calc(100% - 75%); 
+   left : calc(100% - 70%); 
 `
 export default ProfilePlace;

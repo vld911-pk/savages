@@ -6,6 +6,7 @@ const Input = styled.input`
    text-align : center;
    -moz-user-select: none;  
    font-size : ${({font}) => font};
-   margin : 30px;
+   margin : ${({margin}) => margin ? margin : '30px'};
+   border-radius : ${({brs}) => brs ? brs : '0px'};
 `
 export default Input;

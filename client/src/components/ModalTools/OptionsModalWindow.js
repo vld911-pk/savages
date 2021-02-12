@@ -26,7 +26,7 @@ const OptionsModalWindow = ({
                 complexity
               </Paragraph>
               <br />
-              <select value={complexity} onChange={(e) => handleComplexity(e)}>
+              <select value={`${complexity} complexity`} onChange={(e) => handleComplexity(e)}>
                 <option> 1 complexity </option>
                 <option> 2 complexity </option>
                 <option> 3 complexity </option>

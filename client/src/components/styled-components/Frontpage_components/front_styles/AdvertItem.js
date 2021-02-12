@@ -6,7 +6,8 @@ const AdvertItem = styled.div`
   grid-row: ${({ rstart, rend }) => `${rstart} / ${rend}`};
   box-shadow: 10px 10px 10px;
     &: hover {
-        border: 3px solid #0c0c47;
+        border-bottom: 3px solid #0c0c47;
+        border-right: 3px solid #0c0c47;
     };
 `;
 export default AdvertItem;

@@ -138,7 +138,7 @@ function Register({continents, getAllContinents}) {
   );
 }
 const mapStateToProps = (state) => ({
-  continents : state.continents.payload.body,
+  continents : state.continents,
 });
 const mapDispatchToProps = (dispatch) => ({
   getAllContinents : () => dispatch(continentsAction())
