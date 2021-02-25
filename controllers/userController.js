@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const jwtConfig = require('config').jwt;
 const authHelper = require('../helpers/authHelper');
 const userManager = require('../models/userManager');
-const { isArray } = require('lodash');
-
 
 const updateToken = async (userId) => {
     let accessToken = authHelper.generateAccessToken();
@@ -17,13 +15,7 @@ const updateToken = async (userId) => {
             refreshToken : refreshToken.token
         };
 }
-const validationExeption = (req) => {
-    let errors = validationResult(req);
-    if(!errors.isEmpty()){
-       return errors.array();
-    }
-    return [];
-}
+
 const hashcompare = async (password, hash) => {
     return await bcrypt.compare(password, hash);
 }
@@ -50,22 +42,18 @@ module.exports = {
         
     },
     updateUserData : async (req,res) => {
-       
         try {
-           const isValid = validationExeption(req);
-            if(isValid.length !== 0){
-                const {id} = req.param.id;
+            const errors = validationResult(req);
+            if(!errors.isEmpty()){
+                const { id } = req.param.id;
                 const updatedData = req.body;
-                
-                Promise.all([
+                console.log(updatedData);
+                await Promise.all([
                     userManager.updateUserById(updatedData),
                     userManager.updateIds(id,2),
                 ])
                 res.status(200).json({message : 'user\'s data has been updated successfully' });
-            }else if(isArray(isValid)){
-                res.status(401).json({errors : isValid});
-            }
-
+            }else res.status(401).json({errors : isValid});
         } catch (error) {
             res.status(400).json({message : 'failed to update user data'})
         }

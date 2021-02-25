@@ -26,14 +26,16 @@ userRouter.post(
   ],
   userController.loginHandler
 );
+
+//PUT
 userRouter.put(
   "/users/:id",
-  [
-    check("name","Name should be more than 5 letters").isLength({min : 5}),
-    check("surname", "Surname should be more than 5 letters").isLength({ min: 5 }),
-    check("email", "Put correct email").isEmail(),
-    check("continent", "All u had to do, that's choose the fucking options, not even write it man"),
-  ],
+  //[
+  //   check("name","Name should be more than 5 letters").isLength({min : 3 }),
+  //   check("surname", "Surname should be more than 5 letters").isLength({ min: 3 }),
+  //   check("email", "Put correct email").isEmail(),
+  //   check("continent", "All u had to do, that's choose the fucking option, CJ"),
+  // ],
   userController.updateUserData
 );
 

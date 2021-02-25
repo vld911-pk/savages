@@ -6,16 +6,13 @@ import SignBtn from "./styled-components/Nav_components/Sign_Button";
 import NavInformWrapper from "./styled-components/NavInformWrapper";
 import NavAuthButWrapper from "./styled-components/Nav_components/NavAuthButWrapper";
 import ModalWindow from "./ModalTools/ModalWindow";
-import Logout_btn from "../components/ModalTools/Logout_btn";
+import Logout from "../components/ModalTools/Logout_btn";
 import ProfileButton from "../components/styled-components/Nav_components/ProfileButton";
-
-import { doesTokenExists } from "../frontHelpers/tokenHelper";
 
 import {genInfo} from '../text_files/general_info';
 
-function NavBar() {
+function NavBar({ token }) {
   let history = useHistory();
-  const token = doesTokenExists();
   const [modalInfo, setModalInfo] = useState(false);
 
   return (
@@ -62,7 +59,7 @@ function NavBar() {
               <SignBtn />
             </NavLink>
           )}
-          <Logout_btn />
+          <Logout />
         </NavAuthButWrapper>
       </div>
     </>

@@ -13,7 +13,7 @@ module.exports = {
       .where('users.id','=', id),
 
 
-  updateUserById: async ({user_id : userId, name, surname, email}) => await knex("users")
+  updateUserById: async ({user_id, name, surname, email}) => await knex("users")
     .update({
       name,
       surname,

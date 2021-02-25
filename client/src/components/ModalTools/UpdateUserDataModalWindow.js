@@ -45,7 +45,7 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     Promise.all([
-      updateUserData(userId, { ...updatedUser, ...updatedContinent }),
+      updateUserData(userId, { ...updatedUser, updatedContinent }),
       setModalInfo(false),
     ]);
   };
