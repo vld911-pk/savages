@@ -8,5 +8,5 @@ const Input = styled.input`
    font-size : ${({font}) => font};
    margin : ${({margin}) => margin ? margin : '30px'};
    border-radius : ${({brs}) => brs ? brs : '0px'};
-`
+   `
 export default Input;

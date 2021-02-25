@@ -28,10 +28,13 @@ const Timer = ({ passedTasks, time, setPassedTasks }) => {
       : (sec = timeInMs % (60000 * 60 * 60000));
     sec /= 1000;
     if (sec <= 0 && min <= 0) {
+      console.log('a');
       Promise.all([
         setParsedTime(parseInt(time) * 1000 * 60),
-        setPassedTasks((prev) => ++prev),
-      ]);
+        setPassedTasks((prev) => prev + 1),
+      ]).catch((err) => {
+        throw new Error(err);
+      });
       return `00 : 00`;
     }
     return `${min < 10 ? "0" + min : min} : ${sec < 10 ? "0" + sec : sec}`;

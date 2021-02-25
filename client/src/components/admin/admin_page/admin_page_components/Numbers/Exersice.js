@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ExersiceWrapper from './styles/ExersiceWrapper';
 import Input from '../../../../common-components/Input';
 import Timer from "../Timer";
@@ -32,9 +32,8 @@ function Exersice() {
     const [passedTasks, setPassedTasks] = useState(0);
     const [range, setRange] = useState([]);
     
-    let [num1, num2, result] = generateRandomNumbers(range);
+    let [num1, num2, result] = useCallback(generateRandomNumbers(range),[score,passedTasks,range]);
     
-
     useEffect(() => {
         const range = numberComplexityList(complexity);
         setRange(range);
@@ -85,10 +84,10 @@ function Exersice() {
                     <Paragraph params={'0px 15px 0px 15px'}>{passedTasks}/{parseInt(taskCount)} tasks</Paragraph>
                     <Timer passedTasks = {passedTasks} time = {taskTime} setPassedTasks = {setPassedTasks}/>
                 </div>
-                <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num1} />x
-                <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num2}/>
+                <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num1} brs={'10px'} />x
+                <Input readOnly width = {'220px'} height={'80px'} font = {'35px'} value = {num2} brs={'10px'}/>
                     <br />=<br />
-                <Input width = {'220px'} height={'80px'} font={'35px'} value={answer} onChange = {e => handleAnswer(e)} />
+                <Input width = {'220px'} height={'80px'} font={'35px'} value={answer} onChange = {e => handleAnswer(e)} brs={'10px'}/>
                     <br />
                 <CustomButton width={'100px'} variant="outline-info" onClick = {() => {
                     setPassedTasks(prev => ++prev);

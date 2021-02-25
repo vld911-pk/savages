@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { fetchContinents, updateUserData } from "../../api/fetchApi";
 
+import styled from "styled-components";
 import OptionsWrapper from "../styled-components/OptionsWrapper";
 import StyledModalWindow from "../styled-components/ModalWindow";
 import CustomButton from "../common-components/Button";
 import TransparentBackground from "../styled-components/TransparentBackground";
 import Input from "../common-components/Input";
 
-import { fetchContinents, updateUserData } from "../../api/fetchApi";
 import Paragraph from "../common-components/Paragraph";
+
+import { userSameDataAlert } from "../../text_files/alerts"
+
+const Hr = styled.hr`
+  width : 80%;
+`;
+const Form = styled.form`
+    @media (max-width: 800px) {
+      input{
+        width : 150px;
+        height : 25px;
+      }
+    }
+`;
+
+const isObjEquals = (obj1, obj2) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
 
 const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
   const [updatedUser, setUpdatedUser] = useState({
@@ -19,6 +38,7 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
     oldUserData.continent
   );
   const [options, setOptions] = useState([]);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     async function getContinents() {
@@ -44,6 +64,12 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+   
+    if(isObjEquals(oldUserData, {...updatedUser,continent: updatedContinent})){
+      setErr(true);
+      return ;
+    }
+
     Promise.all([
       updateUserData(userId, { ...updatedUser, ...updatedContinent }),
       setModalInfo(false),
@@ -53,9 +79,9 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
   return (
     <React.Fragment>
       <TransparentBackground>
-        <StyledModalWindow width={"30%"} onClick={(e) => e.stopPropagation()}>
-          <form onSubmit={submitHandler}>
-            <Paragraph> name </Paragraph>
+        <StyledModalWindow err={err ? err : null} width={"30%"} onClick={(e) => e.stopPropagation()}>
+          <Form onSubmit={submitHandler}>
+            <Paragraph> name: </Paragraph>
             <Input
               name="name"
               margin={"3px 10px 7px 10px"}
@@ -67,7 +93,7 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
             />
             <br />
 
-            <Paragraph>surname</Paragraph>
+            <Paragraph>surname: </Paragraph>
             <Input
               name="surname"
               width={"250px"}
@@ -79,7 +105,7 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
             />
             <br />
 
-            <Paragraph>email</Paragraph>
+            <Paragraph>email: </Paragraph>
             <Input
               name="email"
               width={"250px"}
@@ -118,7 +144,13 @@ const UpdateUserDataModalWindow = ({ userId, oldUserData, setModalInfo }) => {
                 Close
               </CustomButton>
             </OptionsWrapper>
-          </form>
+            { err ?  
+              <>
+                <Hr />
+                <Paragraph color={'red'}>{userSameDataAlert}</Paragraph>
+              </>
+              : null }
+          </Form>
         </StyledModalWindow>
       </TransparentBackground>
     </React.Fragment>

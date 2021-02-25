@@ -7,7 +7,6 @@ function Admin() {
   return (
     <React.Fragment>
       <AdminWrap>
-        <Paragraph> Admin Page </Paragraph>
         <AdminGrid />
       </AdminWrap>
     </React.Fragment>
