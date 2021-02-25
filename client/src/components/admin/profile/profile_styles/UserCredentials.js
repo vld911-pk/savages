@@ -8,6 +8,6 @@ const UserDataWrapper = styled.div`
    width: 45%;
    height : 100%;
    padding : 15px;
-   margin : 10px;
+   margin : auto;
 `
 export default UserDataWrapper;

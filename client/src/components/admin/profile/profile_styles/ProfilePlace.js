@@ -5,6 +5,8 @@ const ProfilePlace = styled.div`
    justify-content : space-around;
    width : 40%;
    height : auto;
+   min-width : 300px;
+   align-items: center;
    min-height : 350px;
    position : relative;
    background-color: lightgrey;

@@ -1,0 +1,1 @@
+export const userSameDataAlert = 'Please change your credentials';
