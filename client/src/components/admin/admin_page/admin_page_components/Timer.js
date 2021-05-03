@@ -28,7 +28,6 @@ const Timer = ({ passedTasks, time, setPassedTasks }) => {
       : (sec = timeInMs % (60000 * 60 * 60000));
     sec /= 1000;
     if (sec <= 0 && min <= 0) {
-      console.log('a');
       Promise.all([
         setParsedTime(parseInt(time) * 1000 * 60),
         setPassedTasks((prev) => prev + 1),

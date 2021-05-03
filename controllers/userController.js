@@ -117,13 +117,14 @@ module.exports = {
                 res.status(500).json({message : 'Server error'});
             }
     },
-    refreshTokens : async (req,res) => {
+    refreshTokens : async (req, res) => {
+        console.log('jererererererrere');
         const { refreshToken } = req.body;
         let payload;
         try {
             payload = jwt.verify(refreshToken,jwtConfig.SECRET);
             if(payload.type !== 'refresh'){
-                res.status(400).json({message : 'Invalid token'})
+                res.status(400).json({message : 'Invalid refreshToken'})
                 return;
             }
 
@@ -135,9 +136,14 @@ module.exports = {
         }
         const [token] = await userManager.findTokenByTokenId(payload.id);
             if(token === null){
-                throw new Error('Invalid token');
+                throw new Error('Invalid refreshToken');
             }
         
-        return updateToken(token.user_id);
+         res.status(200).json({tokens : updateToken(token.user_id)});
+   },
+
+   getTest : async (req, res) => {
+       res.status(200).json({message : 'test working'});
+       console.log('contr test');
    }
 }

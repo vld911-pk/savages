@@ -9,7 +9,7 @@ import Admin from './components/admin/admin_page/Admin';
 import PersonData from './components/admin/profile/PersonData';
 import AdminNumbers from './components/admin/admin_page/admin_page_components/Numbers/AdminNumbers';
 import AdminEmt from './components/admin/admin_page/admin_page_components/AdminEmt';
-import AdminCards from './components/admin/admin_page/admin_page_components/AdminCards';
+import AdminCards from './components/admin/admin_page/admin_page_components/Cards/components/AdminCards';
 
 const Routes = () => {
     

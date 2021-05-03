@@ -1,6 +1,37 @@
+import { 
+    removeTokensAndIdFromLocalStorage, 
+    getTokenFromStorage, 
+    setTokensToLocalStorage 
+} from "../frontHelpers/tokenHelper";
+
 async function ajaxHandler(url = "", params = {}) {
   return await fetch(url, params);
 }
+
+
+function authHeader() {
+  const access = getTokenFromStorage('accessToken');
+  const refresh = getTokenFromStorage('refreshToken');
+  return access && refresh ? { 'Authorization': 'Bearer ' + JSON.stringify([access, refresh]) } : {};
+}
+
+async function toRefreshTokenMiddleware( json ){
+  
+  if (json.message === 'accessToken expired') {
+      let response = await refreshToken();
+      console.log('response', response);
+  }
+
+}
+
+export async function fetchTest(){
+  const response = await ajaxHandler(`http://localhost:3002/api/test`, {
+    method: "GET",
+    headers: authHeader(),
+  });
+  const json = await response.json();
+   if(await toRefreshTokenMiddleware(json)) return json;
+} 
 
 export async function fetchContinents() {
   return await ajaxHandler("http://localhost:3002/api/continents", {
@@ -28,7 +59,7 @@ export function updateUserData(id,form) {
     },
   })
   .then(data => data.json())
-  .catch(err => console.log(err));
+  .catch(err => {throw new Error(err)});
 }
 
 export async function getUserData(userId) {
@@ -42,4 +73,20 @@ export async function getUserData(userId) {
     }
   );
   return await response.json();
+}
+
+export async function refreshToken(){
+  const refresh = getTokenFromStorage('refreshToken');
+
+  const response = await ajaxHandler(`http://localhost:3002/api/refresh`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(refresh),
+  });
+  console.log('response', response);
+  const json = await response.json();
+  //return await response.json();
+
 }

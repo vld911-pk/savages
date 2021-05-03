@@ -5,10 +5,20 @@ const userRouter = Router();
 
 const authMiddleware = require("../middleware/auth");
 
+function logger (req,res,next){
+  console.log('logger', req);
+  next();
+}
+//test
+userRouter.get("/test", authMiddleware, userController.getTest);
+userRouter.post("/refresh", logger ,userController.refreshTokens);
+
+
 //GET
 userRouter.get("/users", userController.getAllUsers);
 userRouter.get("/users/:id", userController.getUserById);
 userRouter.get("/continents", userController.getAllContinents);
+
 //POST
 userRouter.post(
   "/register",
@@ -39,6 +49,5 @@ userRouter.put(
   userController.updateUserData
 );
 
-userRouter.post("/refresh-tokens", userController.refreshTokens);
 
 module.exports = userRouter;

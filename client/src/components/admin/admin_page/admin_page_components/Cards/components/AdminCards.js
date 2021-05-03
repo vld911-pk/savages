@@ -1,5 +1,5 @@
 import React from "react";
-import Paragraph from "../../../common-components/Paragraph";
+import Paragraph from "../../../../../common-components/Paragraph";
 
 function AdminCards() {
   return (
