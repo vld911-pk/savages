@@ -1,10 +1,11 @@
 import React from "react";
-import Paragraph from "../../../../../common-components/Paragraph";
+import CardImg from "./CardImg";
+
 
 function AdminCards() {
   return (
     <React.Fragment>
-      <Paragraph>Cards</Paragraph>
+        <CardImg src={'/img/cards/tuz_krest.png'} alt={'card'}/>
     </React.Fragment>
   );
 }

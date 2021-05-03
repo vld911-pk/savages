@@ -10,7 +10,8 @@ const makeP = (text) => {
 }
 
 
-export const     numsInfo = `first of all you have to choose the ${makeP('complexity')} of task:
+export const numsInfo = `
+first of all you have to choose the complexity of task:
     1 (primary) - numbers : 0 - 20;
     2 (medium)  - numbers : 10 - 99;
     3 (hard)    - numbers : 100 - 999
