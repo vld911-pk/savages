@@ -1,8 +1,6 @@
 import React from 'react';
-
 import Img from "../../../../../common-components/Img";
 import Paragraph from "../../../../../common-components/Paragraph";
-
 import TaskHeader from "../styles/TaskHeader";
 import OptionsWrapper from "../../../../../styled-components/OptionsWrapper";
 

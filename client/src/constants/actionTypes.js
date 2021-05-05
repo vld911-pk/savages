@@ -8,3 +8,9 @@ export const GET_CONTINENTS_FULFILLED = 'GET_CONTINENTS_FULFILLED';
 //users
 
 export const GET_USER = 'GET_USER';
+
+
+//cards
+
+export const GET_CARDS = 'GET_CARDS';
+export const DELETE_CARDS = 'DELETE_CARDS';

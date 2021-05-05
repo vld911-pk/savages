@@ -22,7 +22,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "webpack": "^5.36.2"
   },
   "scripts": {
     "start": "cross-env PORT=3008 && react-scripts start",
@@ -46,14 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "css-loader": "^5.0.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^4.5.1",
-    "json-loader": "^0.5.7",
-    "react-hot-loader": "^4.13.0",
-    "style-loader": "^2.0.0",
-    "webpack-cli": "^4.3.1"
   }
 }
