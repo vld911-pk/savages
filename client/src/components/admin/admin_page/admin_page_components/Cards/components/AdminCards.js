@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CardGame from "./CardGame";
 import CardTest from "./CardTest";
+import CardResult from "./CardsResults";
 import CardsGameWrapper from "../styles/CardsGameWrapper";
 
 const types = {
@@ -11,15 +12,21 @@ const types = {
 
 function AdminCards() {
   const [type, setType] = useState(types.START_TYPE);
+  const [sessionResults, setSessionResults] = useState(0);
+
+  const renderComponents = (type) => {
+    switch(type){
+      case 1: return <CardGame setType={setType} />;
+      case 2: return <CardTest setType={setType} setSessionResults={setSessionResults}/>;
+      case 3: return <CardResult res={sessionResults}/>;
+      default : return null;
+    }
+  }
 
   return (
     <>
         <CardsGameWrapper>
-          {type === 1 ? (
-            <CardGame setType={setType} />
-          ) : (
-            <CardTest setType={setType} />
-          )}
+           {renderComponents(type)}
         </CardsGameWrapper>
     </>
   );

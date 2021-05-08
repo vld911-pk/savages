@@ -45,7 +45,7 @@ function CardGame({ setType }) {
       <LeftBar>
         <div>
           <CardImg
-            src={`${link_domain}${flippedCard}`}
+            src={`${link_domain}${'Back.png'}`}
             alt={cardName}
             title={cardName}
             width={"180px"}
