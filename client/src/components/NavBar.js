@@ -43,7 +43,7 @@ function NavBar({ token }) {
             onClick={() => history.push("/user/admin")}
           >
             {" "}
-            Profile{" "}
+            Games{" "}
           </CustomButton>
         </NavInformWrapper>
         {modalInfo && (

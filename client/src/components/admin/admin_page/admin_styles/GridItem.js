@@ -5,6 +5,10 @@ const GridItem = styled.div`
   height: 600px;
   text-align: center;
   box-shadow:5px 5px 5px;
+  background-image: url(${({src}) => src ? src : ''});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   &: hover {
     border-bottom: 3px solid #000;

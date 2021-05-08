@@ -1,13 +1,35 @@
 export const link_domain = '/img/cards/';
-export const flippedCard = 'flipped.png';
+export const flippedCard = 'BACK.png';
 export const links = [
     'trevolta.jpg',
-    'tuz_krest.png',
-    'tuz_chirva.jpg',
-    'tuz_buba.jpg',
-    'tuz_pic.png',
-    'king_pic.jpeg',
-    'king_krest.png',
+    'C-A.png',
+    'C-K.png',
+    'C-Q.png',
+    'C-J.png',
+    'C-10.png',
+    'C-9.png',
+    'C-8.png',
+    'D-A.png',
+    'D-K.png',
+    'D-Q.png',
+    'D-J.png',
+    'D-10.png',
+    'D-9.png',
+    'D-8.png',
+    'H-A.png',
+    'H-K.png',
+    'H-Q.png',
+    'H-J.png',
+    'H-10.png',
+    'H-9.png',
+    'H-8.png',
+    'P-A.png',
+    'P-K.png',
+    'P-Q.png',
+    'P-J.png',
+    'P-10.png',
+    'P-9.png',
+    'P-8.png',
 ];
 
 export const cardNames = {

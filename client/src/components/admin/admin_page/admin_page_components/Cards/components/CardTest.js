@@ -19,6 +19,17 @@ const CardImgWrapper = styled.div`
   margin: 5px;
 `;
 
+const BottomComponent = styled.div`
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 5px;
+  left: 0px;
+  top: 0px;
+  margin: 10px auto;
+  overflow-y: auto;
+`;
+
 const CardTest = ({ card_links }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
@@ -45,8 +56,8 @@ const CardTest = ({ card_links }) => {
             return <Scrum background={passed[index] ? passed[index] : 0} />;
           })}
         </Passers>
-        <div style={{ display: "flex" }}>
-          {card_links.map((v) => {
+        <BottomComponent>
+          {card_links.map((v, index) => {
             const cardName = v.split(".")[0];
             return (
               <CardImgWrapper
@@ -61,13 +72,14 @@ const CardTest = ({ card_links }) => {
                   src={`${link_domain}${v}`}
                   title={cardName}
                   alt={cardName}
-                  width={"90px"}
-                  heigth={"135px"}
+                  width={"110px"}
+                  heigth={"155px"}
+                  border={true}
                 />
               </CardImgWrapper>
             );
           })}
-        </div>
+        </BottomComponent>
       </CardWrapper>
       {
         modalInfo && <ModalWindow info={'cardGame'} setModalInfo={setModalInfo} />

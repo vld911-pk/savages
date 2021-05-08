@@ -10,7 +10,7 @@ const history = useHistory();
   return (
     <React.Fragment>
       <Grid>
-        <GridItem onClick = {() => history.push('/user/admin/cards')}>   Cards </GridItem>
+        <GridItem onClick = {() => history.push('/user/admin/cards')} src={'/img/promo-cards.jpg'}> Cards </GridItem>
         <GridItem onClick = {() => history.push('/user/admin/numbers')}> Numbers </GridItem>
         <GridItem onClick = {() => history.push('/user/admin/empty')}>   ... </GridItem>
       </Grid>
