@@ -6,6 +6,7 @@ import CardImg from "../components/CardImg";
 import { Passers, Scrum } from "../styles/Passers";
 import { link_domain } from "../config/cardLinks";
 import { deleteCardsAction } from "../../../../../../actions/cardsAction";
+import { getUserCardsResults } from "../config/fetchData";
 
 
 const CardWrapper = styled.div`
@@ -42,10 +43,15 @@ const CardTest = ({ card_links, setType, setSessionResults }) => {
   const handleResult = async (value) => {
     await setResults(prev => value === 1 ? prev + 50 : prev - 50);
   }
+
   useEffect(() => {
     if(count === card_links.length) {
       dispatch(deleteCardsAction());
-      Promise.all([setType(prev => ++prev), setSessionResults(results)]);
+      Promise.all([
+        setType(prev => ++prev), 
+        getUserCardsResults(setSessionResults),
+        setSessionResults(results),
+      ]);
     } 
   }, [count]);
 

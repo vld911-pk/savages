@@ -18,7 +18,7 @@ function AdminCards() {
     switch(type){
       case 1: return <CardGame setType={setType} />;
       case 2: return <CardTest setType={setType} setSessionResults={setSessionResults}/>;
-      case 3: return <CardResult res={sessionResults}/>;
+      case 3: return <CardResult setType={setType} res={sessionResults}/>;
       default : return null;
     }
   }

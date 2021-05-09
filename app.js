@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('config');
 const bodyParser = require('body-parser');
 const userRouter = require('./routers/usersRouter');
+const cardsRouter = require('./routers/cardsRouter');
 
 const PORT = process.env.PORT || 3002;
 
@@ -18,6 +19,7 @@ app.get('/',(req,res)  => {
 })
 //routes
 app.use('/api',userRouter);
+app.use('/games', cardsRouter);
 
 app.listen(PORT,() => {
     console.log(`Server has been started on ${PORT}`);
