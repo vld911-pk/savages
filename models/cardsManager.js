@@ -1,13 +1,18 @@
 const knex = require("../db");
 
-async function setCardsResult(res){
-    await knex('cardsResults').insert();
+async function setCardsResult(res, date, userId){
+    await knex('cardsResults')
+        .insert({userId, score: res, date})
+        .where('userId', '=', userId);
 }
 
-// function getUserCardsResult(){
-//     return ;
-// } 
+async function getUserCardsResult(userId){
+    return knex('cardsResults')
+        .select('score', 'date')
+        .where('userId', '=', userId);
+} 
 
-// module.exports = {
-//     getUserCardsResult;
-// }
+module.exports = {
+    getUserCardsResult,
+    setCardsResult,
+}

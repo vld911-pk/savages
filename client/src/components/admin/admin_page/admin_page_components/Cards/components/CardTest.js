@@ -6,7 +6,7 @@ import CardImg from "../components/CardImg";
 import { Passers, Scrum } from "../styles/Passers";
 import { link_domain } from "../config/cardLinks";
 import { deleteCardsAction } from "../../../../../../actions/cardsAction";
-import { getUserCardsResults } from "../config/fetchData";
+import { setUserCardsResult } from "../config/fetchData";
 
 
 const CardWrapper = styled.div`
@@ -22,15 +22,19 @@ const CardImgWrapper = styled.div`
 const BottomComponent = styled.div`
   width: 80%;
   display: grid;
-  grid-template-columns: repeat(${({ver}) => !ver ? 9 : 8}, 1fr);
+  grid-template-columns: repeat(${({isLinux}) => !isLinux ? 9 : 8}, 1fr);
   grid-gap: 5px;
   left: 0px;
   top: 0px;
   margin: 10px auto;
   overflow-y: auto;
+    @media (max-width: 400px) { 
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 3px;
+    }
 `;
 
-const CardTest = ({ card_links, setType, setSessionResults }) => {
+const CardTest = ({ card_links, setType, userId }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const [passed, setPassed] = useState([]);
@@ -49,8 +53,7 @@ const CardTest = ({ card_links, setType, setSessionResults }) => {
       dispatch(deleteCardsAction());
       Promise.all([
         setType(prev => ++prev), 
-        getUserCardsResults(setSessionResults),
-        setSessionResults(results),
+        setUserCardsResult(results, userId),
       ]);
     } 
   }, [count]);
@@ -63,7 +66,7 @@ const CardTest = ({ card_links, setType, setSessionResults }) => {
             return <Scrum background={passed[index] ? passed[index] : 0} />;
           })}
         </Passers>
-        <BottomComponent ver={navigator.appVersion.indexOf("Linux") != - 1}>
+        <BottomComponent isLinux={navigator.appVersion.indexOf("Linux") != - 1}>
           {card_links.map((v) => {
             const cardName = v.split(".")[0];
             return (
@@ -96,7 +99,7 @@ const CardTest = ({ card_links, setType, setSessionResults }) => {
 CardTest.propTypes = {
   card_links: propTypes.array.isRequired,
   setType: propTypes.func.isRequired,
-  setSessionResults: propTypes.func.isRequired,
+  userId: propTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

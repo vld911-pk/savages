@@ -17,7 +17,7 @@ import Paragraph from "../../../../../common-components/Paragraph";
 
 function CardGame({ setType }) {
   const dispatch = useDispatch();
-  const [slinks, setSlinks] = useState(links);
+  const [slinks, setSlinks] = useState(links.slice(0, 3));
   const [cardIndex, setCardIndex] = useState(1);
   const [nextButtonDisable, setNextButtonDisable] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);

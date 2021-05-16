@@ -15,7 +15,7 @@ app.use(function(req,res,next){
 });
 app.use(express.json({extended : true})); 
 app.get('/',(req,res)  => {
-    res.send('<p>Hello</p>');
+    res.send('<p>Server side of FS site</p>');
 })
 //routes
 app.use('/api',userRouter);

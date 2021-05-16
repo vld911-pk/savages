@@ -1,14 +1,16 @@
 const cardsManager = require('../models/cardsManager');
 
-function getCardsResults(req, res) {
-     // res.send('<p>Yep i\'m here</p>')
-    return res.json({message : 'Yep i\'m here'});
+async function getCardsResults(req, res){
+    const userId = req.params.userId;
+    const data = await (await cardsManager.getUserCardsResult(userId)).slice(-5);
+    return res.status(200).json({data, message: 'ok'});
 }
 
-function setCardsResult(req, res) {
-    const data = req.body;
-    console.log('--------->', data);
-    return res.json({message : 'setter'});
+async function setCardsResult(req, res) {
+    const {results, date} = res.locals.body;
+    const userId = res.locals.userId;
+    await cardsManager.setCardsResult(results, date, userId);
+    return res.status(200).json({message : 'setted'});
 }
 
 module.exports = {

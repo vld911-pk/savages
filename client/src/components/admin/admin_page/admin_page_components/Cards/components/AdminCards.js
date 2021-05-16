@@ -12,13 +12,13 @@ const types = {
 
 function AdminCards() {
   const [type, setType] = useState(types.START_TYPE);
-  const [sessionResults, setSessionResults] = useState(0);
+  const userId = localStorage.getItem('user_id');
 
   const renderComponents = (type) => {
     switch(type){
       case 1: return <CardGame setType={setType} />;
-      case 2: return <CardTest setType={setType} setSessionResults={setSessionResults}/>;
-      case 3: return <CardResult setType={setType} res={sessionResults}/>;
+      case 2: return <CardTest setType={setType} userId={userId} />;
+      case 3: return <CardResult setType={setType} userId={userId} />;
       default : return null;
     }
   }
